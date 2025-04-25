@@ -51,5 +51,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const c = el.getAttribute('data-color');
     if (c) el.style.backgroundColor = c;
   });
+
+  document.querySelectorAll('.program-badge').forEach(el => {
+    el.style.backgroundColor = el.dataset.bg;
+    el.style.color = '#fff';
+  });
   
 });
