@@ -113,9 +113,8 @@ def program_detail(program_id):
     clients = [c for c in get_clients()
                if program['name'] in c.get('enrolled_programs', [])]
 
-    return render_template('program_detail.html',
-                           program=program,
-                           clients=clients)
+    return render_template('program_detail.html', program=program, clients=clients)
+
 
 # ──────────────────────────────────────────────────────────────────────────────
 # CSV Download of Program Client List
