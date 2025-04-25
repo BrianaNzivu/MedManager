@@ -1,0 +1,64 @@
+{% extends "index.html" %}
+{% block content %}
+  <div class="text-center mb-5 animate__animated animate__fadeIn">
+    <h1>Welcome to HealthSys</h1>
+    <p class="lead">Your simple, powerful health information system</p>
+  </div>
+
+  <div class="row text-center mb-4">
+    <div class="col-md-4 animate__animated animate__zoomIn" style="animation-delay:0.1s">
+      <div class="card shadow-sm p-3 mb-4">
+        <h5>Total Clients</h5>
+        <p class="fs-3">{{ total_clients }}</p>
+      </div>
+    </div>
+    <div class="col-md-4 animate__animated animate__zoomIn" style="animation-delay:0.3s">
+      <div class="card shadow-sm p-3 mb-4">
+        <h5>Total Programs</h5>
+        <p class="fs-3">{{ total_programs }}</p>
+      </div>
+    </div>
+    <div class="col-md-4 animate__animated animate__zoomIn" style="animation-delay:0.5s">
+      <div class="card shadow-sm p-3 mb-4">
+        <h5>Enrolled Clients</h5>
+        <p class="fs-3">{{ enrolled_clients }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6 mb-4 animate__animated animate__fadeInLeft" style="animation-delay:0.7s">
+      <h4>Recent Clients</h4>
+      <table class="table table-hover">
+        <thead>
+          <tr><th>Name</th><th>Age</th><th>Gender</th></tr>
+        </thead>
+        <tbody>
+          {% for c in recent_clients %}
+          <tr>
+            <td>{{ c.name }}</td>
+            <td>{{ c.age }}</td>
+            <td>{{ c.gender }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div class="col-md-6 mb-4 animate__animated animate__fadeInRight" style="animation-delay:0.7s">
+      <h4>Recent Programs</h4>
+      <ul class="list-group">
+        {% for p in recent_programs %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          {{ p.name }}
+          <span class="badge 
+            {% if p.status=='Active' %}bg-success
+            {% elif p.status=='Critical' %}bg-danger
+            {% else %}bg-secondary{% endif %}">
+            {{ p.status }}
+          </span>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+{% endblock %}

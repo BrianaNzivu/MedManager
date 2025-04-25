@@ -1,0 +1,15 @@
+{% extends "index.html" %}
+{% block content %}
+  <h2 class="mb-4">Client Profile</h2>
+  <div class="card p-4 shadow-sm">
+    <h4>{{ client.name }}</h4>
+    <p><strong>Age:</strong> {{ client.age }}</p>
+    <p><strong>Gender:</strong> {{ client.gender }}</p>
+    <p><strong>Enrolled Programs:</strong></p>
+    <p>
+      {% for p in client.enrolled_programs %}
+        <span class="badge bg-secondary">{{ p }}</span>
+      {% endfor %}
+    </p>
+  </div>
+{% endblock %}

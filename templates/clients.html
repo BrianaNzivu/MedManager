@@ -1,0 +1,27 @@
+{% extends "index.html" %}
+{% block content %}
+  <h2 class="mb-3">Clients</h2>
+  <table class="table table-striped">
+    <thead>
+      <tr><th>Name</th><th>Age</th><th>Gender</th><th>Programs</th><th>Action</th></tr>
+    </thead>
+    <tbody>
+      {% for c in clients %}
+      <tr>
+        <td>{{ c.name }}</td>
+        <td>{{ c.age }}</td>
+        <td>{{ c.gender }}</td>
+        <td>
+          {% for p in c.enrolled_programs %}
+            <span class="badge bg-secondary">{{ p }}</span>
+          {% endfor %}
+        </td>
+        <td>
+          <a href="{{ url_for('client_profile', client_id=c.id) }}"
+             class="btn btn-sm btn-outline-info">View</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

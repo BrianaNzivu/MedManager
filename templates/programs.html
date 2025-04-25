@@ -1,0 +1,19 @@
+{% extends "index.html" %}
+{% block content %}
+  <h2 class="mb-3">Health Programs</h2>
+  <div class="row g-3">
+    {% for p in programs %}
+      <div class="col-md-4">
+        <div class="card p-3 shadow-sm">
+          <h5>{{ p.name }}</h5>
+          <span class="badge 
+            {% if p.status=='Active' %}bg-success
+            {% elif p.status=='Critical' %}bg-danger
+            {% else %}bg-secondary{% endif %}">
+            {{ p.status }}
+          </span>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}
