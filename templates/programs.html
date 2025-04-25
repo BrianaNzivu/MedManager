@@ -1,18 +1,41 @@
 {% extends "index.html" %}
 {% block content %}
   <h2 class="mb-3">Health Programs</h2>
+
+  <!-- Add Program -->
+  <form method="POST" class="row g-2 align-items-end mb-4 animate__animated animate__fadeIn">
+    <div class="col-md-4">
+      <label class="form-label">Name</label>
+      <input name="name" class="form-control" required>
+    </div>
+    <div class="col-md-2">
+      <label class="form-label">Status</label>
+      <select name="status" class="form-select">
+        <option value="Active">Active</option>
+        <option value="Critical">Critical</option>
+        <option value="Inactive">Inactive</option>
+      </select>
+    </div>
+    <div class="col-md-2">
+      <label class="form-label">Colour</label>
+      <input name="color" type="color" class="form-control form-control-color" value="#0d6efd">
+    </div>
+    <div class="col-md-2">
+      <button class="btn btn-success w-100">Add Program</button>
+    </div>
+  </form>
+
+  <!-- List Programs -->
   <div class="row g-3">
     {% for p in programs %}
-      <div class="col-md-4">
-        <div class="card p-3 shadow-sm">
-          <h5>{{ p.name }}</h5>
-          <span class="badge 
-            {% if p.status=='Active' %}bg-success
-            {% elif p.status=='Critical' %}bg-danger
-            {% else %}bg-secondary{% endif %}">
-            {{ p.status }}
-          </span>
-        </div>
+      <div class="col-md-4 animate__animated animate__flipInY">
+        <a href="{{ url_for('program_detail', program_id=p.id) }}" class="text-decoration-none">
+          <div class="card p-3 shadow-sm">
+            <h5>{{ p.name }}</h5>
+<!-- templates/programs.html -->
+          <span class="badge program-badge" data-color="{{ p.color }}"> {{ p.status }}</span>
+          </div>
+        </a>
       </div>
     {% endfor %}
   </div>

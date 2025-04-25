@@ -1,10 +1,33 @@
 {% extends "index.html" %}
 {% block content %}
   <h2 class="mb-3">Clients</h2>
-  <table class="table table-striped">
-    <thead>
-      <tr><th>Name</th><th>Age</th><th>Gender</th><th>Programs</th><th>Action</th></tr>
-    </thead>
+
+  <!-- Create Client -->
+  <form method="POST" class="row g-2 align-items-center mb-4 animate__animated animate__fadeIn">
+    <div class="col-auto"><input name="name" class="form-control" placeholder="Name" required></div>
+    <div class="col-auto"><input name="age" type="number" class="form-control" placeholder="Age" required></div>
+    <div class="col-auto">
+      <select name="gender" class="form-select" required>
+        <option disabled selected>Gender</option>
+        <option>Male</option><option>Female</option><option>Other</option>
+      </select>
+    </div>
+    <div class="col-auto">
+      <select name="programs" class="form-select" multiple>
+        {% for p in programs %}
+          <option value="{{ p.name }}">{{ p.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="col-auto"><button class="btn btn-primary">Add Client</button></div>
+  </form>
+
+  <!-- Search -->
+  <div class="mb-3"><input id="clientSearch" type="text" class="form-control" placeholder="Search clients..."></div>
+
+  <!-- List -->
+  <table id="clientsTable" class="table table-striped animate__animated animate__fadeInUp">
+    <thead><tr><th>Name</th><th>Age</th><th>Gender</th><th>Programs</th><th>Actions</th></tr></thead>
     <tbody>
       {% for c in clients %}
       <tr>
@@ -13,12 +36,17 @@
         <td>{{ c.gender }}</td>
         <td>
           {% for p in c.enrolled_programs %}
-            <span class="badge bg-secondary">{{ p }}</span>
+            {% set prog = programs|selectattr('name','equalto',p)|first %}
+
+        <span class="badge program-badge" data-color="{{ prog.color }}" > {{ p }} </span>
+   
           {% endfor %}
         </td>
         <td>
-          <a href="{{ url_for('client_profile', client_id=c.id) }}"
-             class="btn btn-sm btn-outline-info">View</a>
+          <a href="{{ url_for('client_profile', client_id=c.id) }}" class="btn btn-sm btn-outline-info">View/Edit</a>
+          <form method="POST" action="{{ url_for('client_delete', client_id=c.id) }}" style="display:inline">
+            <button class="btn btn-sm btn-outline-danger">Delete</button>
+          </form>
         </td>
       </tr>
       {% endfor %}

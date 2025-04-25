@@ -1,15 +1,38 @@
 {% extends "index.html" %}
 {% block content %}
   <h2 class="mb-4">Client Profile</h2>
-  <div class="card p-4 shadow-sm">
-    <h4>{{ client.name }}</h4>
-    <p><strong>Age:</strong> {{ client.age }}</p>
-    <p><strong>Gender:</strong> {{ client.gender }}</p>
-    <p><strong>Enrolled Programs:</strong></p>
-    <p>
-      {% for p in client.enrolled_programs %}
-        <span class="badge bg-secondary">{{ p }}</span>
-      {% endfor %}
-    </p>
-  </div>
+  <form method="POST" class="mb-4 animate__animated animate__fadeIn">
+    <div class="row g-2">
+      <div class="col-md-3">
+        <label class="form-label">Name</label>
+        <input name="name" class="form-control" value="{{ client.name }}" required>
+      </div>
+      <div class="col-md-2">
+        <label class="form-label">Age</label>
+        <input name="age" type="number" class="form-control" value="{{ client.age }}" required>
+      </div>
+      <div class="col-md-2">
+        <label class="form-label">Gender</label>
+        <select name="gender" class="form-select" required>
+          <option {% if client.gender=='Male' %}selected{% endif %}>Male</option>
+          <option {% if client.gender=='Female' %}selected{% endif %}>Female</option>
+          <option {% if client.gender=='Other' %}selected{% endif %}>Other</option>
+        </select>
+      </div>
+      <div class="col-md-3">
+        <label class="form-label">Programs</label>
+        <select name="programs" class="form-select" multiple>
+          {% for p in programs %}
+            <option value="{{ p.name }}"
+              {% if p.name in client.enrolled_programs %}selected{% endif %}>
+              {{ p.name }}
+            </option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-md-2 align-self-end">
+        <button class="btn btn-success w-100">Save Changes</button>
+      </div>
+    </div>
+  </form>
 {% endblock %}

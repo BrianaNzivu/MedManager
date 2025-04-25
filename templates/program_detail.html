@@ -1,0 +1,27 @@
+{% extends "index.html" %}
+{% block content %}
+  <h2 class="mb-4">{{ program.name }}</h2>
+  <span class="badge program-badge" data-color="{{ p.color }}"> {{ program.status }}</span>
+
+  <h4 class="mt-4 mb-3">Enrolled Clients</h4>
+  {% if clients %}
+    <table class="table table-striped animate__animated animate__fadeInUp">
+      <thead><tr><th>Name</th><th>Age</th><th>Gender</th><th>Actions</th></tr></thead>
+      <tbody>
+        {% for c in clients %}
+        <tr>
+          <td>{{ c.name }}</td>
+          <td>{{ c.age }}</td>
+          <td>{{ c.gender }}</td>
+          <td>
+            <a href="{{ url_for('client_profile', client_id=c.id) }}"
+               class="btn btn-sm btn-outline-info">View</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No clients enrolled in this program yet.</p>
+  {% endif %}
+{% endblock %}

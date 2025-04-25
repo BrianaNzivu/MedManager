@@ -1,15 +1,15 @@
 body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
-
 .navbar {
   transition: background-color 0.3s ease;
 }
-
 .card {
   transition: transform 0.2s ease-in-out;
 }
-
 .card:hover {
   transform: scale(1.02);
+}
+.badge {
+  color: #fff;
 }
