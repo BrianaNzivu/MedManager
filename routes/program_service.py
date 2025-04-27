@@ -1,3 +1,5 @@
+# This file provides service functions for interacting with the 'programs' collection in the database.
+
 from firebase_config import db
 
 def add_program(data):

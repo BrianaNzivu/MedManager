@@ -1,3 +1,6 @@
+# This file provides service functions for interacting with the 'clients' and 'programs' collections in the database.
+
+
 from firebase_config import db
 
 def add_client(data):

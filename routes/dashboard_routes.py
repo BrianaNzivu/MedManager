@@ -1,6 +1,8 @@
+# This file defines routes for rendering the dashboard, displaying client and program statistics.
+
 from flask import Blueprint, render_template
-from services.client_service import get_clients
-from services.program_service import get_programs
+from routes.client_service import get_clients
+from routes.program_service import get_programs
 
 dashboard_bp = Blueprint('dashboard', __name__, template_folder='templates')
 
