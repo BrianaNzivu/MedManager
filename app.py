@@ -7,7 +7,7 @@ from firestore_service import (
     get_programs, add_program, get_program
 )
 
-# Set up Flask app
+
 BASE_DIR     = os.path.dirname(os.path.abspath(__file__))
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 STATIC_DIR   = os.path.join(BASE_DIR, 'static')
@@ -16,9 +16,8 @@ app = Flask(__name__,
             template_folder=TEMPLATE_DIR,
             static_folder=STATIC_DIR)
 
-# ──────────────────────────────────────────────────────────────────────────────
+
 # Dashboard
-# ──────────────────────────────────────────────────────────────────────────────
 @app.route('/')
 @app.route('/dashboard')
 def dashboard():
@@ -42,9 +41,7 @@ def dashboard():
                            program_counts=program_counts,
                            program_colors=program_colors)
 
-# ──────────────────────────────────────────────────────────────────────────────
 # Clients (List + Create)
-# ──────────────────────────────────────────────────────────────────────────────
 @app.route('/clients', methods=['GET', 'POST'])
 def clients():
     if request.method == 'POST':
@@ -60,9 +57,7 @@ def clients():
                            clients=get_clients(),
                            programs=get_programs())
 
-# ──────────────────────────────────────────────────────────────────────────────
 # Client Profile / Edit
-# ──────────────────────────────────────────────────────────────────────────────
 @app.route('/clients/<client_id>', methods=['GET', 'POST'])
 def client_profile(client_id):
     if request.method == 'POST':
@@ -78,17 +73,14 @@ def client_profile(client_id):
                            client=get_client(client_id),
                            programs=get_programs())
 
-# ──────────────────────────────────────────────────────────────────────────────
+
 # Delete Client
-# ──────────────────────────────────────────────────────────────────────────────
 @app.route('/clients/<client_id>/delete', methods=['POST'])
 def client_delete(client_id):
     delete_client(client_id)
     return redirect(url_for('clients'))
 
-# ──────────────────────────────────────────────────────────────────────────────
 # Programs (List + Create)
-# ──────────────────────────────────────────────────────────────────────────────
 @app.route('/programs', methods=['GET', 'POST'])
 def programs():
     if request.method == 'POST':
@@ -101,9 +93,7 @@ def programs():
 
     return render_template('programs.html', programs=get_programs())
 
-# ──────────────────────────────────────────────────────────────────────────────
 # Program Detail Page (lists enrolled clients)
-# ──────────────────────────────────────────────────────────────────────────────
 @app.route('/programs/<program_id>')
 def program_detail(program_id):
     program = get_program(program_id)
@@ -115,10 +105,7 @@ def program_detail(program_id):
 
     return render_template('program_detail.html', program=program, clients=clients)
 
-
-# ──────────────────────────────────────────────────────────────────────────────
 # CSV Download of Program Client List
-# ──────────────────────────────────────────────────────────────────────────────
 @app.route('/programs/<program_id>/download')
 def download_program_csv(program_id):
     program = get_program(program_id)
@@ -139,8 +126,11 @@ def download_program_csv(program_id):
                         "Content-Disposition": f"attachment;filename={filename}"
                     })
 
-# ──────────────────────────────────────────────────────────────────────────────
-# Run the Flask app
-# ──────────────────────────────────────────────────────────────────────────────
+@app.route('/programs/<program_id>/delete', methods=['POST'])
+def delete_program(program_id):
+    db.collection('programs').document(program_id).delete()
+    return redirect(url_for('programs'))
+
+
 if __name__ == '__main__':
     app.run(debug=True)

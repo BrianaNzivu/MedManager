@@ -1,21 +1,17 @@
 {% extends "index.html" %}
-
 {% block content %}
   <h2 class="mb-4">{{ program.name }}</h2>
 
-  <!-- Program Status Badge -->
-  <span class="badge program-badge" data-bg="{{ program.color }}">
+  <span class="badge program-badge mb-3" data-bg="{{ program.color }}">
     {{ program.status }}
   </span>
 
 
-  <!-- Download Button -->
   <a href="{{ url_for('download_program_csv', program_id=program.id) }}"
      class="btn btn-outline-secondary mb-4">
     📄 Download Client List (CSV)
   </a>
 
-  <!-- Enrolled Clients List -->
   <h4>Enrolled Clients</h4>
   {% if clients %}
     <table class="table table-striped">
@@ -40,8 +36,3 @@
     <p>No clients enrolled in this program.</p>
   {% endif %}
 {% endblock %}
-
-
-<span class="badge program-badge" data-bg="{{ program.color }}">
-    {{ program.status }}
-  </span>

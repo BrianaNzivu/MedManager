@@ -26,4 +26,4 @@ def get_programs():
 
 def get_program(program_id):
     doc = db.collection('programs').document(program_id).get()
-    return {**doc.to_dict(), 'id': doc.id} if doc.exists else None
+    return doc.to_dict() if doc.exists else None
