@@ -1,5 +1,7 @@
 # MedManager - Health Information Management System
 
+[Presentation slides](https://docs.google.com/presentation/d/1Hl-UzBE2Jj3ZO563htZEmDNViQzNgsMdB1oaLXZT-k8/edit?usp=sharing)
+
 **MedManager** is a clean, responsive Flask web app for managing health programs and client enrollments. It’s backed by Firebase Firestore and Firebase Authentication, offering a simple and secure way to manage healthcare programs, clients, and their enrollments.
 
 ## Features
